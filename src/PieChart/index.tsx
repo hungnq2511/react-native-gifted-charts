@@ -37,6 +37,7 @@ export const PieChart = (props: PieChartPropsType) => {
     tooltipBackgroundColor,
     tooltipBorderRadius,
     tooltipWidth,
+    tooltipHeight,
     tooltipTextNoOfLines,
     textColor,
     textSize,
@@ -116,20 +117,8 @@ export const PieChart = (props: PieChartPropsType) => {
       <View
         style={{
           position: 'absolute',
-          left:
-            touchX > (radius + extraRadius) * 1.5
-              ? props.tooltipHorizontalShift
-                ? touchX - tooltipHorizontalShift
-                : touchX -
-                  (tooltipWidth ??
-                    getTooltipText(tooltipSelectedIndex).length * 10)
-              : touchX - tooltipHorizontalShift,
-          top:
-            touchY < 30
-              ? props.tooltipVerticalShift
-                ? touchY - tooltipVerticalShift
-                : touchY
-              : touchY - tooltipVerticalShift,
+          left: radius * 2 < touchX + tooltipWidth ? touchX - tooltipWidth : touchX,
+          top: radius * 2 < touchY + tooltipHeight ? touchY - tooltipHeight : touchY,
         }}>
         {data[tooltipSelectedIndex].tooltipComponent ? (
           data[tooltipSelectedIndex].tooltipComponent?.()
